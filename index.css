@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg-app: #080a0e;
+  --bg-card: rgba(19, 21, 26, 0.72);
+  --bg-input: rgba(13, 14, 18, 0.8);
+  --bg-panel: rgba(28, 31, 38, 0.85);
+  --border-color: rgba(255, 255, 255, 0.07);
+  --border-focus: rgba(255, 0, 122, 0.35);
+  --text-primary: #ffffff;
+  --text-secondary: #98a1c0;
+  --text-muted: #5d6785;
+  --primary-color: #ff007a;
+  --primary-hover: #e0006c;
+  --primary-gradient: linear-gradient(91.6deg, #ff007a -0.18%, #9c27b0 99.82%);
+  --secondary-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.08) 100%);
+  --glow-pink: rgba(255, 0, 122, 0.15);
+  --glow-purple: rgba(156, 39, 176, 0.15);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: 'Outfit', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Floating background glow circles resembling Uniswap interface */
+.glow-blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(140px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.65;
+  animation: pulse-glow 10s infinite alternate ease-in-out;
+}
+
+.glow-blob-pink {
+  width: 45vw;
+  height: 45vw;
+  background: radial-gradient(circle, rgba(255, 0, 122, 0.2) 0%, rgba(255, 0, 122, 0) 70%);
+  top: -10vw;
+  left: -5vw;
+}
+
+.glow-blob-purple {
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(156, 39, 176, 0.18) 0%, rgba(156, 39, 176, 0) 70%);
+  bottom: -10vw;
+  right: -5vw;
+  animation-delay: -5s;
+}
+
+@keyframes pulse-glow {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(4%, 4%) scale(1.1);
+  }
+}
+
+/* Base App Layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.3, 0, 0, 1);
+  border: 1px solid transparent;
+  font-size: 15px;
+}
+
+.btn-primary {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.95;
+  box-shadow: 0 0 20px rgba(255, 0, 122, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: rgba(255, 0, 122, 0.1);
+  color: var(--primary-color);
+  border: 1px solid rgba(255, 0, 122, 0.15);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: rgba(255, 0, 122, 0.15);
+  border-color: rgba(255, 0, 122, 0.3);
+}
+
+.btn-tertiary {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-tertiary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.btn:disabled {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  border-color: transparent;
+  cursor: not-allowed;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rotate-once {
+  animation: rotateOnce 0.4s ease-in-out;
+}
+
+@keyframes rotateOnce {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(180deg); }
+}
+
+/* Form Inputs */
+.input-field {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 26px;
+  font-weight: 600;
+  outline: none;
+}
+
+.input-field::placeholder {
+  color: var(--text-muted);
+}
+
+.input-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Navigation items container styling */
+.nav-tab-active {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary) !important;
+  font-weight: 600;
+}
